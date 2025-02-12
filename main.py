@@ -2,6 +2,7 @@ import gi
 import psutil
 import pulsectl
 import subprocess
+import socket
 
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -26,6 +27,16 @@ class UbuntuFrameControlWindow(Adw.ApplicationWindow):
         
         self.battery_value = Gtk.Label()
         battery_row.add_suffix(self.battery_value)
+
+        # IP Address Display
+        ip_row = Adw.ActionRow()
+        ip_row.set_title("IP Address")
+        self.box.append(ip_row)
+
+        self.ip_value = Gtk.Label()
+        ip_row.add_suffix(self.ip_value)
+
+        self.update_ip_address()
 
         # Audio Devices Heading
         audio_devices_heading = Adw.ActionRow()
@@ -103,6 +114,18 @@ class UbuntuFrameControlWindow(Adw.ApplicationWindow):
         
         self.battery_value.set_text(battery_info)
         return True
+
+    def update_ip_address(self):
+        ip_address = None
+        for interface, addrs in psutil.net_if_addrs().items():
+            for addr in addrs:
+                if addr.family == socket.AF_INET and addr.address != "127.0.0.1":
+                    ip_address = addr.address
+                    break
+            if ip_address:
+                break
+
+        self.ip_value.set_text(ip_address or "No IP address found")
 
     def update_sound_devices(self):
         self.pa = pulsectl.Pulse('my-pulse-client')
