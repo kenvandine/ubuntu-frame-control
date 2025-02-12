@@ -9,13 +9,6 @@ description: |
 grade: stable
 confinement: strict
 
-slots:
-  # for GtkApplication registration
-  ubuntu-frame-control:
-    interface: dbus
-    bus: session
-    name: com.github.kenvandine.UbuntuFrameControl
-
 parts:
   ubuntu-frame-control:
     plugin: nil

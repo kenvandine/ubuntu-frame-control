@@ -161,7 +161,7 @@ class BatteryWindow(Adw.ApplicationWindow):
 class BatteryApp(Adw.Application):
 
     def __init__(self):
-        Adw.Application.__init__(self, application_id="com.github.kenvandine.UbuntuFrameControl", flags=0)
+        Adw.Application.__init__(self, application_id="com.github.kenvandine.UbuntuFrameControl", flags=Gio.ApplicationFlags.NON_UNIQUE)
         self.connect("activate", self.on_activate)
 
     def on_activate(self, app):
