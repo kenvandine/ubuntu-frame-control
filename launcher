@@ -1,3 +1,6 @@
 #!/bin/bash
 
+# block the app from running for 10 seconds to prevent it from being the first
+# process to display on ubuntu-frame
+sleep 10
 python3 $SNAP/main.py
