@@ -7,7 +7,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
 
-class BatteryWindow(Adw.ApplicationWindow):
+class UbuntuFrameControlWindow(Adw.ApplicationWindow):
 
     def __init__(self, app):
         Adw.ApplicationWindow.__init__(self, application=app, title="System Information")
@@ -158,16 +158,15 @@ class BatteryWindow(Adw.ApplicationWindow):
         subprocess.run(['brightnessctl', 'set', str(brightness)])
         print(f"Brightness set to {brightness}%")
 
-class BatteryApp(Adw.Application):
+class UbuntuFrameControl(Adw.Application):
 
     def __init__(self):
         Adw.Application.__init__(self, application_id="com.github.kenvandine.UbuntuFrameControl", flags=Gio.ApplicationFlags.NON_UNIQUE)
         self.connect("activate", self.on_activate)
 
     def on_activate(self, app):
-        win = BatteryWindow(app)
+        win = UbuntuFrameControlWindow(app)
         win.present()
 
-app = BatteryApp()
+app = UbuntuFrameControl()
 app.run(None)
-
