@@ -65,6 +65,7 @@ class BatteryWindow(Adw.ApplicationWindow):
         input_row.add_suffix(self.input_volume)
 
         # Brightness Control
+        """
         brightness_row = Adw.ActionRow()
         brightness_row.set_title("Display Brightness")
         self.box.append(brightness_row)
@@ -75,6 +76,7 @@ class BatteryWindow(Adw.ApplicationWindow):
         brightness_row.add_suffix(self.brightness_scale)
 
         self.brightness_scale.connect("value-changed", self.on_brightness_changed)
+        """
 
         self.update_battery_info()
         GLib.timeout_add_seconds(60, self.update_battery_info)
