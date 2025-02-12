@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Settings
+Icon=icon.svg
+Exec=launcher
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Settings;
+Keywords=Preferences;Settings;

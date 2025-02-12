@@ -1,0 +1,57 @@
+name: ubuntu-frame-control
+base: core24
+version: '0.1'
+summary: Ubuntu Frame Control
+description: |
+  Displays battery and charging information and allows selecting audio 
+  input and output devices and change volume.
+
+grade: stable
+confinement: strict
+
+slots:
+  # for GtkApplication registration
+  ubuntu-frame-control:
+    interface: dbus
+    bus: session
+    name: com.github.kenvandine.UbuntuFrameControl
+
+parts:
+  ubuntu-frame-control:
+    plugin: nil
+    source: .
+    override-build: |
+      cp main.py $CRAFT_PART_INSTALL/
+      cp launcher $CRAFT_PART_INSTALL/
+
+  deps:
+    plugin: nil
+    stage-packages:
+      - python3-psutil
+      - python3-pulsectl
+      - brightnessctl
+
+apps:
+  ubuntu-frame-control:
+    extensions: [gnome]
+    command: launcher
+    plugs:
+      - audio-playback
+      - audio-record
+      - hardware-observe
+      - process-control
+    environment:
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
+  daemon:
+    extensions: [gnome]
+    daemon: simple
+    restart-delay: 3s
+    install-mode: disable
+    command: launcher
+    plugs:
+      - audio-playback
+      - audio-record
+      - hardware-observe
+      - process-control
+    environment:
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
